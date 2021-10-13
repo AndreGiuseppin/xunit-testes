@@ -13,7 +13,7 @@ namespace XUnit.Api.Controllers
 
         public GameController(IGameService gameService)
         {
-            _gameService = gameService;
+            _gameService = gameService ?? throw new System.ArgumentNullException(nameof(gameService));
         }
 
         [HttpPost]

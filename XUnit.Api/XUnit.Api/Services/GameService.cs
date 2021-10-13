@@ -12,7 +12,7 @@ namespace XUnit.Api.Services
 
         public GameService(IGameRepository gameRepository)
         {
-            _gameRepository = gameRepository;
+            _gameRepository = gameRepository ?? throw new System.ArgumentNullException(nameof(gameRepository));
         }
 
         public async Task<string> CreateGame(Games request)
@@ -20,7 +20,7 @@ namespace XUnit.Api.Services
             var game = await _gameRepository.FindById(request.Id);
 
             if (game != null)
-                return "Game with the same Id don't exists in our database!";
+                return "Game with the same Id already exists in our database!";
 
             await _gameRepository.Create(request);
 
